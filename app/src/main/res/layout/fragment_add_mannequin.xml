@@ -9,7 +9,7 @@
 
     <ImageButton
         android:id="@+id/getImageFromGalleryButton"
-        android:src="@drawable/vlad"
+        android:src="@drawable/lera"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/tap_to_add_a_photo_mannequin"
         android:layout_width="180dp"
