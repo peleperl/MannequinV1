@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="ru.otus.a220903newtestmodel.screens.StartFragment"
+        android:label="MBM"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_addMannequinFragment"
+            app:destination="@id/addMannequinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="ru.otus.a220903newtestmodel.screens.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="text"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMannequinFragment"
+        android:name="ru.otus.a220903newtestmodel.model.AddMannequinFragment"
+        android:label="fragment_add_mannequin"
+        tools:layout="@layout/fragment_add_mannequin" />
+</navigation>

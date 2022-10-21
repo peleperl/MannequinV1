@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">220903NewTestModel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_format">%$s1 %$s2</string>
+    <string name="tap_to_add_a_photo_mannequin">Tap to add a photo mannequin</string>
+    <string name="input_first_name">Input first name</string>
+    <string name="input_second_name">Input second name</string>
+</resources>

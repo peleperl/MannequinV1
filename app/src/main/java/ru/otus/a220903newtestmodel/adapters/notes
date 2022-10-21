@@ -1,0 +1,115 @@
+From ST AC
+
+
+        Consumer<MannequinResponse>{
+                            @Override
+                            fun accept(mannequinResponse: MannequinResponse){
+                                adapter.setMannequin(mannequinResponse.getResponse())
+                                Log.e("MER",   "23")}
+                        }
+                        Consumer<Throwable> {
+                            @Override
+                            fun accept(throwable: Throwable){
+                                Log.e("MER", "UPS")
+                            }
+                             compositeDisposable?.add(disposable)
+
+
+From ADAPTER
+private var mannequinst: MutableList<Mannequin> = mutableListOf()
+    set(newValue){
+        val diffCallback = MannequinDiffCallback(field, newValue)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        field = newValue
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+fun setMannequin(mannequinResponseRespons: MutableList<Mannequin>) {
+          val diffCallback = MannequinDiffCallback(mannequinst, mannequinResponseRespons.toMutableList())
+          val diffResult = DiffUtil.calculateDiff(diffCallback)
+            mannequinst.addAll(mannequinResponseRespons)
+            diffResult.dispatchUpdatesTo(this)
+        }
+
+            override fun onClick(view: View) {
+                val mannequinResponse: Mannequin = view.tag as Mannequin
+                when (view.id) {
+                    R.id.removeMannequinFromListButton -> {
+                        mannequinActionListener.mannequinDelete(mannequinResponse)
+                        mannequinst.remove(mannequinResponse)
+
+                    }
+                    else -> {
+                        val bundle: Bundle? = Bundle()
+                        bundle?.putInt("id", mannequinResponse.id)
+                        findNavController(view).navigate(
+                            R.id.action_startFragment_to_detailFragment,
+                            bundle
+                        )
+                    }
+                }
+            }
+
+                override fun getItemCount(): Int {
+                    return mannequinst.size
+                }
+
+                override fun onBindViewHolder(holder: StartFragmentViewHolder, position: Int) {
+                        val mannequinResponse: Mannequin = mannequinst.get(position)
+                        with(holder.binding) {
+                            holder.itemView.tag = mannequinResponse
+                            removeMannequinFromListButton.tag = mannequinResponse
+
+                            mannequinItemName.text = String.format(mannequinResponse.firstName + " " + mannequinResponse.lastName)
+                            if (mannequinResponse.id == 190) {
+                                Glide.with(mannequinItemImageView.context)
+                                    .load(mannequinResponse.photo100.toInt())
+                                    .circleCrop()
+                                    .placeholder(R.drawable.katya)
+                                    .into(mannequinItemImageView)
+                            } else {
+                                Glide.with(mannequinItemImageView.context)
+                                    .load(mannequinResponse.photo100)
+                                    .circleCrop()
+                                    .placeholder(R.drawable.katya)
+                                    .into(mannequinItemImageView)
+                            }
+                            if (mannequinResponse.city == null) {
+                                mannequinItemDescription.text = "Без роду"
+                            } else {
+                                mannequinItemDescription.text = mannequinResponse.city.title
+                            }
+                        }
+                    }
+
+                    interface MannequinActionListener {
+                        fun mannequinDelete(mannequinResponse: Mannequin)
+                        fun mannequinDetail(mannequinResponse: Mannequin)
+                    }
+                    //Создаём анимации в списке
+                    class MannequinDiffCallback(
+                        private val oldMannequinList: MutableList<Mannequin>,
+                        private val newMannequinList: MutableList<Mannequin>
+                    ):DiffUtil.Callback(){
+                        override fun getOldListSize(): Int = oldMannequinList.size
+                        override fun getNewListSize(): Int = newMannequinList.size
+
+                        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                            val oldMannequin = oldMannequinList[oldItemPosition]
+                            val newMannequin = newMannequinList[newItemPosition]
+                            val txt = oldMannequin.id==newMannequin.id
+                            Log.e("MER", "" + txt.toString() +"34")
+                            return oldMannequin.id==newMannequin.id
+                        }
+
+                        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                            val oldMannequin = oldMannequinList[oldItemPosition]
+                            val newMannequin = newMannequinList[newItemPosition]
+                            val areCont = oldMannequin.city==newMannequin.city
+                                    &&oldMannequin.agreeToNude==newMannequin.agreeToNude
+                                    &&oldMannequin.firstName==newMannequin.firstName&&oldMannequin.lastName==newMannequin.lastName
+                                    //&&oldMannequin.photo100==newMannequin.photo100&&oldMannequin.bdate==newMannequin.bdate
+                            Log.e("MER", areCont.toString())
+                            return areCont
+                        }
+                    }
