@@ -22,6 +22,7 @@ class StartFragment : Fragment() {
     private val sharedViewModel: MannequinViewModel by activityViewModels()
     private lateinit var adapter: StartFragmentAdapters
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)

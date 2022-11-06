@@ -48,6 +48,7 @@ class StartFragmentAdapters(private val mannequinActionListener: MannequinAction
         val mannequin: Mannequin = mannequinst.get(position)
         with(holder.binding) {
             holder.itemView.tag = mannequin
+            Log.e("MER", position.toString()+"0")
             removeMannequinFromListButton.tag = mannequin
 
             mannequinItemName.text = String.format(mannequin.firstName + " " + mannequin.lastName)
