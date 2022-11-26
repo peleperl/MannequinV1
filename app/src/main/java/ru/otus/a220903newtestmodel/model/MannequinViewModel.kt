@@ -83,9 +83,5 @@ class MannequinViewModel: ViewModel() {
         return Mannequin(mannequinResponse.id, mannequinResponse.firstName, mannequinResponse.lastName, mannequinResponse.photo100, mannequinResponse.photo_200, cityMannequin, bdates)
     }
 
-    fun getImageFromGallery(){
-
-    }
-
 }
 
